@@ -51,6 +51,16 @@ export default function SongDetailPage() {
 
   if (!song) return null;
 
+  const formatDate = (dateInput) => {
+    if (!dateInput) return '';
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return dateInput; 
+    const y = date.getFullYear();
+    const m = date.getMonth() + 1;
+    const d = date.getDate();
+    return `${y}. ${m}. ${d}.`;
+  };
+
   // Sparkline data (last 7 sessions, reversed to be chronological)
   const recentSessions = [...sessions].slice(0, 7).reverse();
   const sparklineData = {
@@ -92,8 +102,9 @@ export default function SongDetailPage() {
       <div className="px-6 pb-6">
         <div className="mb-6">
           <h1 className="text-2xl font-title font-bold text-walnut-dark leading-tight">{song.title}</h1>
-          <p className="text-walnut-mid text-sm mt-1">
-            {song.startDate || ''}
+          <p className="text-walnut-mid text-sm mt-2 flex items-center gap-1.5 opacity-90">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-glow animate-pulse"></span>
+            {formatDate(song.startDate)}부터 연습 진행 중
           </p>
         </div>
 
@@ -131,14 +142,14 @@ export default function SongDetailPage() {
                   <div className="p-2 bg-ivory-deep rounded-lg text-walnut-mid">
                     <Calendar size={18} />
                   </div>
-                  <div>
-                    <div className="font-bold text-walnut-dark">{session.overallScore}점</div>
-                    <div className="text-xs text-walnut-mid mt-0.5">
-                      {new Date(session.createdAt).toLocaleDateString('ko-KR')}
-                    </div>
+                  <div className="text-sm font-medium text-walnut-dark">
+                    {formatDate(session.createdAt)}
                   </div>
                 </div>
-                <ChevronRight size={20} className="text-walnut-mid/50" />
+                <div className="flex items-center gap-3">
+                  <div className="font-bold text-walnut-dark text-lg">{session.overallScore}점</div>
+                  <ChevronRight size={18} className="text-walnut-mid/40" />
+                </div>
               </Link>
             ))
           )}
