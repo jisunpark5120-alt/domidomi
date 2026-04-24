@@ -84,7 +84,9 @@ export default function SongDetailPage() {
           </div>
           <div>
             <h1 className="text-2xl font-title font-bold text-walnut-dark leading-tight">{song.title}</h1>
-            <p className="text-walnut-mid text-sm mt-1">{song.composer} • {song.difficulty}</p>
+            <p className="text-walnut-mid text-sm mt-1">
+              {song.startDate ? `연습 시작일: ${song.startDate}` : ''}
+            </p>
           </div>
         </div>
 

@@ -57,7 +57,9 @@ export default function SongListPage() {
                 <Music size={20} />
               </div>
               <h3 className="font-bold text-walnut-dark line-clamp-2 leading-snug">{song.title}</h3>
-              <p className="text-xs text-walnut-mid mt-1 truncate">{song.composer}</p>
+              <p className="text-xs text-walnut-mid mt-1 truncate">
+                {song.startDate ? `시작일: ${song.startDate}` : ''}
+              </p>
             </div>
           </Link>
         ))}

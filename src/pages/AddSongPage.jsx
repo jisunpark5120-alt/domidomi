@@ -9,8 +9,7 @@ const DIFFICULTIES = ['초급', '중급', '고급'];
 export default function AddSongPage() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
-  const [composer, setComposer] = useState('');
-  const [difficulty, setDifficulty] = useState('중급');
+  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
   const [color, setColor] = useState(COLORS[0]);
 
   const handleSubmit = async (e) => {
@@ -19,8 +18,7 @@ export default function AddSongPage() {
 
     await saveSong({
       title,
-      composer,
-      difficulty,
+      startDate,
       color,
       isFavorite: false
     });
@@ -30,7 +28,7 @@ export default function AddSongPage() {
   return (
     <div className="flex flex-col h-full bg-ivory-bright">
       <header className="p-4 flex items-center border-b border-walnut-mid/10">
-        <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-walnut-dark">
+        <button type="button" onClick={() => navigate(-1)} className="p-2 -ml-2 text-walnut-dark">
           <ArrowLeft size={24} />
         </button>
         <h2 className="text-xl font-title font-bold ml-2">새 곡 추가</h2>
@@ -50,30 +48,14 @@ export default function AddSongPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-walnut-mid mb-2">작곡가</label>
+          <label className="block text-sm font-medium text-walnut-mid mb-2">연습 시작일</label>
           <input
-            type="text"
-            value={composer}
-            onChange={(e) => setComposer(e.target.value)}
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
             className="w-full bg-white border border-walnut-mid/20 rounded-xl px-4 py-3 text-walnut-dark focus:outline-none focus:border-amber-glow focus:ring-1 focus:ring-amber-glow transition-all"
-            placeholder="예: 베토벤"
+            required
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-walnut-mid mb-2">난이도</label>
-          <div className="flex gap-2">
-            {DIFFICULTIES.map(diff => (
-              <button
-                key={diff}
-                type="button"
-                onClick={() => setDifficulty(diff)}
-                className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${difficulty === diff ? 'bg-walnut-dark text-white' : 'bg-walnut-mid/10 text-walnut-mid hover:bg-walnut-mid/20'}`}
-              >
-                {diff}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div>
