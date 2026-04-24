@@ -70,17 +70,17 @@ export default function SongListPage() {
 
               {/* Favorite Star */}
               {song.isFavorite && (
-                <div className="absolute top-2 right-2 z-10 bg-white/50 backdrop-blur-sm p-1.5 rounded-full shadow-sm">
-                  <Star className="text-amber-glow fill-amber-glow" size={14} />
+                <div className="absolute top-3 right-3 z-10">
+                  <Star className="text-amber-glow fill-amber-glow drop-shadow-sm" size={18} />
                 </div>
               )}
 
               {/* Content Label */}
               <div className="relative z-10 p-3 pt-0">
                 <div className="bg-ivory-bright/95 backdrop-blur px-3 py-2.5 rounded-lg shadow-sm border border-walnut-mid/10">
-                  <h3 className="font-bold text-walnut-dark text-sm line-clamp-2 leading-snug">{song.title}</h3>
+                  <h3 className="font-bold text-walnut-dark text-base line-clamp-2 leading-snug">{song.title}</h3>
                   <p className="text-[10px] text-walnut-mid mt-1 font-medium truncate">
-                    {song.startDate ? `시작일: ${song.startDate}` : ''}
+                    {song.startDate || ''}
                   </p>
                 </div>
               </div>

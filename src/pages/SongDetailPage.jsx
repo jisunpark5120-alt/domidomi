@@ -90,19 +90,11 @@ export default function SongDetailPage() {
       </header>
 
       <div className="px-6 pb-6">
-        <div className="flex items-center gap-4 mb-6">
-          <div 
-            className="w-16 h-16 rounded-xl flex items-center justify-center text-white shadow-soft"
-            style={{ backgroundColor: song.color }}
-          >
-            <span className="font-title text-2xl font-bold">{song.title.charAt(0)}</span>
-          </div>
-          <div>
-            <h1 className="text-2xl font-title font-bold text-walnut-dark leading-tight">{song.title}</h1>
-            <p className="text-walnut-mid text-sm mt-1">
-              {song.startDate ? `연습 시작일: ${song.startDate}` : ''}
-            </p>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-2xl font-title font-bold text-walnut-dark leading-tight">{song.title}</h1>
+          <p className="text-walnut-mid text-sm mt-1">
+            {song.startDate || ''}
+          </p>
         </div>
 
         {sessions.length > 0 && (
