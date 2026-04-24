@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import { format, parse } from 'date-fns';
 
-const COLORS = ['#C87941', '#6B3F1F', '#3D1F0A', '#8c5936', '#a16d47', '#b9511f'];
+const COLORS = ['#3D1F0A', '#6B3F1F', '#8c5936', '#a16d47', '#b9511f', '#C87941'];
 const DIFFICULTIES = ['초급', '중급', '고급'];
 
 export default function AddSongPage() {

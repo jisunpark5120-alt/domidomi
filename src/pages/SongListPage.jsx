@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Music, Star } from 'lucide-react';
 import { getSongs } from '../utils/storage';
+import SheetMusicIcon from '../components/SheetMusicIcon';
 
 export default function SongListPage() {
   const [songs, setSongs] = useState([]);
@@ -25,7 +26,7 @@ export default function SongListPage() {
           <h1 className="text-3xl font-title font-bold text-walnut-dark tracking-tight">도미도미</h1>
           <p className="text-walnut-mid mt-1">오늘의 피아노 연습을 기록하세요</p>
         </div>
-        <Music className="text-amber-glow opacity-80" size={32} />
+        <SheetMusicIcon className="text-amber-glow opacity-80" size={32} />
       </header>
 
       <div className="flex gap-4 mb-6">
@@ -54,7 +55,7 @@ export default function SongListPage() {
                 className="w-12 h-12 rounded-full flex items-center justify-center mb-4 text-white"
                 style={{ backgroundColor: song.color || '#C87941' }}
               >
-                <Music size={20} />
+                <SheetMusicIcon size={24} />
               </div>
               <h3 className="font-bold text-walnut-dark line-clamp-2 leading-snug">{song.title}</h3>
               <p className="text-xs text-walnut-mid mt-1 truncate">
@@ -67,7 +68,7 @@ export default function SongListPage() {
 
       {filteredSongs.length === 0 && (
         <div className="text-center py-20 opacity-50 flex flex-col items-center">
-          <Music size={48} className="text-walnut-mid mb-4 opacity-50" />
+          <SheetMusicIcon size={48} className="text-walnut-mid mb-4 opacity-50" />
           <p className="text-walnut-mid">등록된 곡이 없습니다.</p>
         </div>
       )}
