@@ -35,13 +35,13 @@ export default function SongListPage() {
       <div className="flex bg-walnut-mid/10 rounded-full p-1.5 mb-6 relative z-10 shadow-inner">
         <button 
           onClick={() => setFilter('ALL')}
-          className={`flex-1 py-3 rounded-full text-sm font-bold transition-all ${filter === 'ALL' ? 'bg-white text-walnut-dark shadow-sm' : 'text-walnut-mid hover:text-walnut-dark'}`}
+          className={`flex-1 py-3 rounded-full text-sm font-bold touch-manipulation active:scale-[0.98] ${filter === 'ALL' ? 'bg-white text-walnut-dark shadow-sm' : 'text-walnut-mid hover:text-walnut-dark'}`}
         >
           전체 곡
         </button>
         <button 
           onClick={() => setFilter('FAVORITES')}
-          className={`flex-1 py-3 rounded-full text-sm font-bold transition-all ${filter === 'FAVORITES' ? 'bg-white text-walnut-dark shadow-sm' : 'text-walnut-mid hover:text-walnut-dark'}`}
+          className={`flex-1 py-3 rounded-full text-sm font-bold touch-manipulation active:scale-[0.98] ${filter === 'FAVORITES' ? 'bg-white text-walnut-dark shadow-sm' : 'text-walnut-mid hover:text-walnut-dark'}`}
         >
           즐겨찾기
         </button>
