@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Check, Music } from 'lucide-react';
 import { saveSong } from '../utils/storage';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ko } from 'date-fns/locale';
+import { format } from 'date-fns';
 
 const COLORS = ['#C87941', '#6B3F1F', '#3D1F0A', '#8c5936', '#a16d47', '#b9511f'];
 const DIFFICULTIES = ['초급', '중급', '고급'];
@@ -9,7 +13,7 @@ const DIFFICULTIES = ['초급', '중급', '고급'];
 export default function AddSongPage() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+  const [startDate, setStartDate] = useState(new Date());
   const [color, setColor] = useState(COLORS[0]);
 
   const handleSubmit = async (e) => {
@@ -18,7 +22,7 @@ export default function AddSongPage() {
 
     await saveSong({
       title,
-      startDate,
+      startDate: format(startDate, 'yyyy/MM/dd'),
       color,
       isFavorite: false
     });
@@ -49,10 +53,11 @@ export default function AddSongPage() {
 
         <div>
           <label className="block text-sm font-medium text-walnut-mid mb-2">연습 시작일</label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            locale={ko}
+            dateFormat="yyyy/MM/dd"
             className="w-full bg-white border border-walnut-mid/20 rounded-xl px-4 py-3 text-walnut-dark focus:outline-none focus:border-amber-glow focus:ring-1 focus:ring-amber-glow transition-all"
             required
           />
