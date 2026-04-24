@@ -137,10 +137,9 @@ export default function PracticePage() {
                   <p className="text-walnut-mid mb-12 text-center">연주를 직접 녹음해주세요</p>
                 ) : (
                   <div className="text-center mb-10 text-walnut-mid">
-                    <p>연주 파일(녹음 파일, 동영상)을 선택해주세요.</p>
+                    <p>오디오 또는 비디오를 업로드해 주세요</p>
                     <p className="text-xs mt-1.5 opacity-70">
-                      지원 형식: mp3, m4a, mp4, mov 등<br/>
-                      (크기 제한 없음)
+                      지원 형식: mp3, m4a, mp4, mov 등
                     </p>
                   </div>
                 )}
