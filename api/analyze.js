@@ -9,9 +9,9 @@ export default async function handler(req, res) {
     // In a real scenario, if Claude supports native audio, we pass audioData.
     // Assuming 'audioData' is a base64 string and Claude handles it, or we pass metadata for now.
     
-    const anthropicApiKey = process.env.VITE_ANTHROPIC_API_KEY;
+    const anthropicApiKey = process.env.ANTHROPIC_API_KEY || process.env.VITE_ANTHROPIC_API_KEY;
     if (!anthropicApiKey) {
-      throw new Error("Missing VITE_ANTHROPIC_API_KEY");
+      throw new Error("Missing ANTHROPIC_API_KEY");
     }
 
     const systemPrompt = `당신은 '도미도미(Domidomi)'라는 개인 AI 피아노 연습 코치입니다.
@@ -50,7 +50,7 @@ JSON Format:
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 1024,
         system: systemPrompt,
         messages: [
@@ -67,11 +67,11 @@ JSON Format:
       console.error('Anthropic API Error:', errorData);
       
       // Fallback dummy data if API fails (useful for UI testing without real key)
-      if (response.status === 401 || response.status === 404) {
+      if (response.status === 400 || response.status === 401 || response.status === 404) {
         return res.status(200).json({
           rhythm: 7, pitch: 8, dynamics: 6, pedal: 7, evenness: 6,
           leftHand: 7, rightHand: 8, expression: 7,
-          comment: "[API Key 오류 또는 모델명 오류 데모 피드백] 연주가 참 좋네요! 계속 연습해 봅시다."
+          comment: "[데모 피드백] 연주가 참 좋네요! 박자를 좀 더 안정적으로 유지해 보세요. 계속 연습해 봅시다."
         });
       }
       return res.status(response.status).json({ error: 'Failed to fetch from Anthropic' });

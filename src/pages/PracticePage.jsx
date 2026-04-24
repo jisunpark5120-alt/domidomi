@@ -164,7 +164,7 @@ export default function PracticePage() {
                   <div className="flex flex-col flex-1 items-center justify-center">
                     <input 
                       type="file" 
-                      accept="audio/*" 
+                      accept="audio/*,video/*" 
                       className="hidden" 
                       ref={fileInputRef}
                       onChange={handleFileUpload}
