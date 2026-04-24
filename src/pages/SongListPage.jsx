@@ -47,20 +47,43 @@ export default function SongListPage() {
       <div className="grid grid-cols-2 gap-4">
         {filteredSongs.map((song) => (
           <Link to={`/song/${song.id}`} key={song.id} className="block group">
-            <div className="bg-ivory-bright p-5 rounded-xl shadow-sm border border-walnut-mid/5 group-hover:shadow-soft transition-all h-full relative">
-              {song.isFavorite && (
-                <Star className="absolute top-3 right-3 text-amber-glow fill-amber-glow" size={16} />
-              )}
-              <div 
-                className="w-12 h-12 rounded-full flex items-center justify-center mb-4 text-white"
-                style={{ backgroundColor: song.color || '#C87941' }}
-              >
-                <SheetMusicIcon size={24} />
+            <div 
+              className="rounded-xl border border-walnut-mid/20 group-hover:border-amber-glow/50 transition-all h-36 relative overflow-hidden flex flex-col justify-end shadow-sm group-hover:shadow-soft"
+              style={{ backgroundColor: `${song.color}15` }}
+            >
+              {/* Left binding strip */}
+              <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ backgroundColor: song.color }} />
+
+              {/* 5 Staff Lines Background */}
+              <div className="absolute inset-0 flex flex-col justify-evenly py-6 opacity-[0.15] pointer-events-none mix-blend-multiply px-2">
+                <div className="h-[1px] w-full bg-walnut-dark" />
+                <div className="h-[1px] w-full bg-walnut-dark" />
+                <div className="h-[1px] w-full bg-walnut-dark" />
+                <div className="h-[1px] w-full bg-walnut-dark" />
+                <div className="h-[1px] w-full bg-walnut-dark" />
               </div>
-              <h3 className="font-bold text-walnut-dark line-clamp-2 leading-snug">{song.title}</h3>
-              <p className="text-xs text-walnut-mid mt-1 truncate">
-                {song.startDate ? `시작일: ${song.startDate}` : ''}
-              </p>
+
+              {/* Watermark Icon */}
+              <div className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none text-walnut-dark">
+                <SheetMusicIcon size={120} />
+              </div>
+
+              {/* Favorite Star */}
+              {song.isFavorite && (
+                <div className="absolute top-2 right-2 z-10 bg-white/50 backdrop-blur-sm p-1.5 rounded-full shadow-sm">
+                  <Star className="text-amber-glow fill-amber-glow" size={14} />
+                </div>
+              )}
+
+              {/* Content Label */}
+              <div className="relative z-10 p-3 pt-0">
+                <div className="bg-ivory-bright/95 backdrop-blur px-3 py-2.5 rounded-lg shadow-sm border border-walnut-mid/10">
+                  <h3 className="font-bold text-walnut-dark text-sm line-clamp-2 leading-snug">{song.title}</h3>
+                  <p className="text-[10px] text-walnut-mid mt-1 font-medium truncate">
+                    {song.startDate ? `시작일: ${song.startDate}` : ''}
+                  </p>
+                </div>
+              </div>
             </div>
           </Link>
         ))}
