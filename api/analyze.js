@@ -11,7 +11,10 @@ export default async function handler(req, res) {
     
     const anthropicApiKey = process.env.ANTHROPIC_API_KEY || process.env.VITE_ANTHROPIC_API_KEY;
     if (!anthropicApiKey) {
-      throw new Error("Missing ANTHROPIC_API_KEY");
+      return res.status(200).json({
+        rhythm: 7, pitch: 8, dynamics: 6, pedal: 7, evenness: 6, leftHand: 7, rightHand: 8, expression: 7,
+        comment: "[API Key 누락] 서버에 API 키가 설정되지 않았습니다. 현재는 데모 피드백입니다. 연주가 참 좋네요! 계속 연습해 봅시다."
+      });
     }
 
     const systemPrompt = `당신은 '도미도미(Domidomi)'라는 개인 AI 피아노 연습 코치입니다.
@@ -63,18 +66,18 @@ JSON Format:
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      let errorData;
+      try { errorData = await response.json(); } catch(e) { errorData = response.statusText; }
       console.error('Anthropic API Error:', errorData);
       
-      // Fallback dummy data if API fails (useful for UI testing without real key)
-      if (response.status === 400 || response.status === 401 || response.status === 404) {
+      // Fallback dummy data if API fails
+      if (response.status === 400 || response.status === 401 || response.status === 403 || response.status === 404) {
         return res.status(200).json({
-          rhythm: 7, pitch: 8, dynamics: 6, pedal: 7, evenness: 6,
-          leftHand: 7, rightHand: 8, expression: 7,
-          comment: "[데모 피드백] 연주가 참 좋네요! 박자를 좀 더 안정적으로 유지해 보세요. 계속 연습해 봅시다."
+          rhythm: 7, pitch: 8, dynamics: 6, pedal: 7, evenness: 6, leftHand: 7, rightHand: 8, expression: 7,
+          comment: `[API 데모 피드백 - 코드 ${response.status}] 연주가 좋네요! 계속 연습해 봅시다. (사유: ${errorData?.error?.message || 'API 권한/설정 문제'})`
         });
       }
-      return res.status(response.status).json({ error: 'Failed to fetch from Anthropic' });
+      return res.status(response.status).json({ error: `Anthropic API 호출 실패: ${errorData?.error?.message || '알 수 없는 서버오류'}`, code: response.status });
     }
 
     const data = await response.json();
@@ -86,11 +89,11 @@ JSON Format:
       const result = JSON.parse(jsonMatch[0]);
       return res.status(200).json(result);
     } else {
-      return res.status(500).json({ error: 'Failed to parse JSON from AI response' });
+      return res.status(500).json({ error: 'AI 응답에서 평가 결과를 읽을 수 없습니다.', code: 'PARSE_ERROR' });
     }
 
   } catch (error) {
     console.error('API Error:', error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message || '서버 내부 처리 중 알 수 없는 오류가 발생했습니다.', code: 'INTERNAL_ERROR' });
   }
 }

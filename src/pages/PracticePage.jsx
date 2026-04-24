@@ -50,7 +50,11 @@ export default function PracticePage() {
       });
       
       const result = await res.json();
-      if (!res.ok) throw new Error(result.error);
+      if (!res.ok) {
+        const err = new Error(result.error || '서버 통신에 실패했습니다.');
+        err.code = result.code || res.status;
+        throw err;
+      }
 
       // calc overall score
       const metrics = ['rhythm', 'pitch', 'dynamics', 'pedal', 'evenness', 'leftHand', 'rightHand', 'expression'];
@@ -79,8 +83,12 @@ export default function PracticePage() {
 
     } catch (err) {
       console.error(err);
-      alert('분석 중 오류가 발생했습니다.');
-      setAnalyzing(false);
+      setAnalyzing(false); // Stop loading indicator immediately
+      
+      // setTimeout gives React one tick to unmount the 'analyzing' screen before blocking with alert
+      setTimeout(() => {
+        alert(`분석 중 문제가 발생했습니다.\n\n에러 코드: ${err.code || '클라이언트 오류'}\n상세 사유: ${err.message}`);
+      }, 50);
     }
   };
 
