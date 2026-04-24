@@ -21,24 +21,27 @@ export default function SongListPage() {
 
   return (
     <div className="p-6 relative min-h-full">
-      <header className="mb-8 flex justify-between items-end">
-        <div>
-          <h1 className="text-3xl font-title font-bold text-walnut-dark tracking-tight">도미도미</h1>
-          <p className="text-walnut-mid mt-1">오늘의 피아노 연습을 기록하세요</p>
+      <header className="mb-8 relative z-10 w-full overflow-hidden pb-4">
+        <div className="relative z-10">
+          <h1 className="text-4xl font-title font-bold text-walnut-dark tracking-tight">도미도미</h1>
+          <p className="text-walnut-mid mt-2">오늘의 피아노 연습을 기록하세요</p>
         </div>
-        <SheetMusicIcon className="text-amber-glow opacity-80" size={32} />
+        {/* Decorative large icon on the top right */}
+        <div className="absolute -top-4 right-0 -mr-4 opacity-10 pointer-events-none -z-10 text-walnut-dark">
+          <SheetMusicIcon size={140} />
+        </div>
       </header>
 
-      <div className="flex gap-4 mb-6">
+      <div className="flex bg-walnut-mid/10 rounded-full p-1.5 mb-6 relative z-10 shadow-inner">
         <button 
           onClick={() => setFilter('ALL')}
-          className={`px-4 py-2 rounded-full text-sm transition-all ${filter === 'ALL' ? 'bg-walnut-dark text-ivory-bright shadow-soft' : 'bg-walnut-mid/10 text-walnut-mid hover:bg-walnut-mid/20'}`}
+          className={`flex-1 py-3 rounded-full text-sm font-bold transition-all ${filter === 'ALL' ? 'bg-white text-walnut-dark shadow-sm' : 'text-walnut-mid hover:text-walnut-dark'}`}
         >
           전체 곡
         </button>
         <button 
           onClick={() => setFilter('FAVORITES')}
-          className={`px-4 py-2 rounded-full text-sm transition-all ${filter === 'FAVORITES' ? 'bg-amber-glow text-white shadow-soft' : 'bg-walnut-mid/10 text-walnut-mid hover:bg-walnut-mid/20'}`}
+          className={`flex-1 py-3 rounded-full text-sm font-bold transition-all ${filter === 'FAVORITES' ? 'bg-white text-walnut-dark shadow-sm' : 'text-walnut-mid hover:text-walnut-dark'}`}
         >
           즐겨찾기
         </button>
@@ -78,7 +81,7 @@ export default function SongListPage() {
               {/* Content Label */}
               <div className="relative z-10 p-3 pt-0">
                 <div className="bg-ivory-bright/95 backdrop-blur px-3 py-2.5 rounded-lg shadow-sm border border-walnut-mid/10">
-                  <h3 className="font-bold text-walnut-dark text-base line-clamp-2 leading-snug">{song.title}</h3>
+                  <h3 className="font-bold text-walnut-dark text-lg line-clamp-2 leading-snug">{song.title}</h3>
                   <p className="text-[10px] text-walnut-mid mt-1 font-medium truncate">
                     {song.startDate || ''}
                   </p>
