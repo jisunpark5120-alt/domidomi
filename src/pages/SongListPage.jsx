@@ -79,13 +79,13 @@ export default function SongListPage() {
               )}
 
               {/* Content Label */}
-              <div className="relative z-10 p-3 pt-0">
-                <div className="bg-ivory-bright/95 backdrop-blur px-3 py-2.5 rounded-lg shadow-sm border border-walnut-mid/10">
-                  <h3 className="font-bold text-walnut-dark text-lg line-clamp-2 leading-snug">{song.title}</h3>
-                  <p className="text-[10px] text-walnut-mid mt-1 font-medium truncate">
-                    {song.startDate || ''}
-                  </p>
-                </div>
+              <div className="relative z-10 p-3">
+                <h3 className="font-bold text-walnut-dark text-lg line-clamp-2 leading-snug drop-shadow-[0_0_8px_rgba(249,246,240,1)]" style={{ textShadow: '0 0 6px rgba(249,246,240,1), 0 0 2px rgba(249,246,240,1)' }}>
+                  {song.title}
+                </h3>
+                <p className="text-xs text-walnut-dark/80 mt-1 font-medium truncate" style={{ textShadow: '0 0 4px rgba(249,246,240,0.9)' }}>
+                  {song.startDate || ''}
+                </p>
               </div>
             </div>
           </Link>
