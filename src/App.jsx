@@ -16,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SongListPage />} />
             <Route path="/add" element={<AddSongPage />} />
+            <Route path="/edit/:id" element={<AddSongPage />} />
             <Route path="/song/:id" element={<SongDetailPage />} />
             <Route path="/song/:id/practice" element={<PracticePage />} />
             <Route path="/session/:sessionId" element={<ResultsPage />} />

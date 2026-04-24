@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Mic, Star, Calendar, ChevronRight } from 'lucide-react';
-import { getSong, saveSong, getSessionsForSong } from '../utils/storage';
+import { ArrowLeft, Mic, Star, Calendar, ChevronRight, Trash2, Edit3 } from 'lucide-react';
+import { getSong, saveSong, getSessionsForSong, deleteSong } from '../utils/storage';
 // We use line-chart from react-chartjs-2 for sparkline
 import {
   Chart as ChartJS,
@@ -42,6 +42,13 @@ export default function SongDetailPage() {
     setSong(updated);
   };
 
+  const handleDelete = async () => {
+    if (window.confirm('정말 소중한 연습 기록을 모두 삭제하시겠습니까?\n이 작업은 되돌릴 수 없어요! 😭')) {
+      await deleteSong(id);
+      navigate('/');
+    }
+  };
+
   if (!song) return null;
 
   // Sparkline data (last 7 sessions, reversed to be chronological)
@@ -69,9 +76,17 @@ export default function SongDetailPage() {
         <button onClick={() => navigate('/')} className="p-2 -ml-2 text-walnut-dark">
           <ArrowLeft size={24} />
         </button>
-        <button onClick={toggleFavorite} className="p-2 text-amber-glow">
-          <Star size={24} className={song.isFavorite ? "fill-amber-glow" : ""} />
-        </button>
+        <div className="flex items-center gap-1">
+          <button onClick={() => navigate(`/edit/${id}`)} className="p-2 text-walnut-mid hover:text-walnut-dark transition-colors">
+            <Edit3 size={22} />
+          </button>
+          <button onClick={handleDelete} className="p-2 text-rose-500/70 hover:text-rose-500 transition-colors">
+            <Trash2 size={22} />
+          </button>
+          <button onClick={toggleFavorite} className="p-2 text-amber-glow transition-colors">
+            <Star size={24} className={song.isFavorite ? "fill-amber-glow" : ""} />
+          </button>
+        </div>
       </header>
 
       <div className="px-6 pb-6">
