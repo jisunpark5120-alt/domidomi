@@ -133,7 +133,17 @@ export default function PracticePage() {
             >
               <div className="w-full max-w-sm flex flex-col items-center">
                 <h2 className="text-2xl font-title font-bold text-walnut-dark mb-1 text-center">{song.title}</h2>
-                <p className="text-walnut-mid mb-12 text-center">{mode === 'record' ? '연주를 녹음해주세요' : '오디오 파일을 업로드하세요'}</p>
+                {mode === 'record' ? (
+                  <p className="text-walnut-mid mb-12 text-center">연주를 직접 녹음해주세요</p>
+                ) : (
+                  <div className="text-center mb-10 text-walnut-mid">
+                    <p>연주 파일(녹음 파일, 동영상)을 선택해주세요.</p>
+                    <p className="text-xs mt-1.5 opacity-70">
+                      지원 형식: mp3, m4a, mp4, mov 등<br/>
+                      (크기 제한 없음)
+                    </p>
+                  </div>
+                )}
 
                 <div className="flex bg-walnut-mid/5 rounded-full p-1 mb-12 self-stretch mx-auto w-48">
                   <button 
